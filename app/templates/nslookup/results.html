@@ -1,0 +1,66 @@
+{% extends 'nslookup/base.html' %}
+
+{% block title %} Specific DNS - Result {% endblock %}
+
+{% block content %}
+
+{% if domain %}
+  <br />
+  <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="window.location='/whois/';">Nova Pesquisa</button>
+  <br />
+  <div class="table-responsive" >
+  <table class="table table-hover table-primary text-center ">
+      <thead>
+      <tr>
+
+          <th scope="col">Entrada</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Servidores</th>
+      </tr>
+      </thead>
+      <tbody>
+
+          {% for key, value in domain.items() %}
+
+          {% if value["destino"] is iterable and value["destino"] is not string %}
+              {% set value_destiny = "<br/><br/>".join(value["destino"])|safe %}
+          {% else %}
+              {% set value_destiny = value["destino"] %}
+          {% endif %}
+
+          <tr>
+              <td>{{ value['entrada'] }}</td>
+              <td>{{ key|upper }}</td>
+
+              {% if value["error"] != 0 and value["error"] != 1 %}
+                  <td class="p-3 mb-2 alert alert-success ">
+                      Destino <br/><strong>{{ value_destiny }}</strong><br/> correto
+                  </td>
+              {% elif value["error"] == 1 %}
+                  <td class="p-3 mb-2 alert alert-danger">
+                      Destino <strong>{{ key|upper }}</strong> não configurado
+                  </td>
+              {% elif value["error"] == 0 %}
+                  <td class="p-3 mb-2 alert alert-warning">
+                      Destino <br/><strong>{{ value_destiny }}</strong><br/> incorreto
+                  </td>
+              {% endif %}
+
+          </tr>
+          {% endfor %}
+
+      </tbody>
+  </table>
+  </div>
+
+
+{% else %}
+<br />
+<button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="window.location='/whois/';">Nova Pesquisa</button>
+<br />
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">{{ error }}</h4><hr>
+    Não foi possível encontrar dns do domínio digitado. Por favor, tente novamente.
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'nslookup/base.html' %}
+
+{% block content %}
+
+{% block script %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" language="javascript">
+
+    function remove_loading() {
+        $(document).ready(function () {
+            $("#load").show();
+            $("#loading").hide();
+        });
+     }
+
+    function loading() {
+        $(document).ready(function () {
+            $("#loading").show();
+            $("#load").hide();
+        });
+    }
+
+    function valida_form() {
+
+        var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/gm;
+        var domain = document.getElementById("domain").value;
+        
+
+        if (domain == null || domain == '') {
+            alert('Campo de domínio não pode ser vazio!');
+            remove_loading();
+            document.getElementById("domain").focus();
+            return false;
+        }
+
+        if (domain.length < 3) {
+            alert('Preencha no mínimo 3 caracteres para a pesquisa.');
+            remove_loading();
+            document.getElementById("domain").focus();
+            
+            return false;
+        }
+
+        if (!regex.test(domain)) {
+            alert('Preencha o domínio corretamente!');
+            remove_loading();
+            document.getElementById("domain").focus();
+            return false;
+        }
+
+    }
+
+</script>
+
+{% endblock %}
+<style>
+    div#loading {
+        left: 50%;
+        top: 40%;
+        width: 300px;
+        height: 250px;
+        margin-left: -150px;
+        margin-top: -125px;
+        display: none;
+        text-align: center;
+        position: absolute;
+        z-index: 1000;
+    }
+
+
+</style>
+
+<div id="loading">
+    <img src="{{ url_for('static', filename='image/pulse.gif') }}">
+</div>
+    <form method="POST" action="{{ url_for('app.result_whois') }}" id="load" onsubmit="return valida_form(this)">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="row">
+            <!-- Domain -->
+            <div class="form-group col-6 text-center">
+                <label for="domain">Domínio</label>
+                <input type="text" class="form-control" min="2" max="26" name="domain" id="domain">
+                <small class="form-text text-muted">Digite o domínio para buscar o whois</small>
+            </div>
+            <!-- Zone DNS -->
+            <div class="form-group col-6 text-center">
+                <label for="zone_dns">Selecione o Plano</label>
+                <select name="zone" class="form-control" id="zone_dns">
+                    <option>E-MAIL PROFISSIONAL</option>
+                </select>
+                <small class="form-text text-muted">Qual plano você deseja pesquisar?</small>
+            </div>
+        </div>
+        <br />
+        <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="loading();">Buscar</button>
+    </form>
+
+
+<footer id="sticky-footer" class="py-4 bg-dark text-white fixed-bottom" style="margin-top: 23.7%">
+    <div class="container text-center">
+      <small>&copy; Desenvolvido por Fernando Heitor - 2020</small>
+    </div>
+</footer>
+
+{% endblock %}
