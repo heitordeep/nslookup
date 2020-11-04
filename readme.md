@@ -1,7 +1,5 @@
 # Nslookup UOL Host
 
-<img src='https://img.shields.io/badge/License-MIT-informational'>
-
 # :computer: Sobre o projeto:
 Nslookup UOL Host: O objetivo deste projeto é auxiliar pessoas que tenham dificuldades em verificar o **DNS** do seu domínio,
 porém o sistema verifica somente se o seu domínio encontra-se no servidor do **UOL HOST**
