@@ -1,9 +1,10 @@
 import subprocess
 
+from interface import WhoisInterface
 
-class Whois:
+class Whois(WhoisInterface):
 
-    def consult_ns(self, domain: str) -> bool:
+    def get_ns(self, domain: str) -> bool:
 
         proc = subprocess.Popen(
             f'dig {domain} ns +short',
@@ -21,12 +22,12 @@ class Whois:
             outs, errs = proc.communicate()
             proc.kill()
 
-    def consult_cname(self, protocol: str, domain:str) -> str:
+    def get_cname(self, protocol: str, domain:str) -> str:
         return subprocess.getoutput(
             f'dig {protocol}.{domain} cname +short'
         )
 
-    def consult_other_zone(self, domain: str, protocol: str) -> str:
+    def get_other_zone(self, domain: str, protocol: str) -> str:
         return subprocess.getoutput(
             f'dig {domain} {protocol} +short'
         )

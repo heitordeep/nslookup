@@ -1,13 +1,8 @@
-import re
-
 from flask import Blueprint, render_template, request
 
-from app.services import Process
+from app.process import Process
 
 app = Blueprint('app', __name__, url_prefix='/whois/')
-
-# You can add more searches.
-allowed_search = ('e-mail profissional')
 
 
 @app.route('/')
@@ -17,27 +12,28 @@ def home():
 
 @app.route('/result/', methods=['POST'])
 def result_whois():
-    process = Process()
     if request.method == 'POST':
 
         domain = request.form.get('domain')
-        zone = request.form.get('zone')
+        service = request.form.get('service')
 
-        if domain and zone:
+        if domain and service:
 
-            whois = process.consult_product(input_product=zone)
+            process = Process()
+            service_whois = process.get_service(input_service=service)
 
-            conditions = [zone.lower() in allowed_search]
-            # Remove www, http and https in the domain
-            domain_regex = re.sub(r"^(?:https?:\/\/)?(?:www\.)?", '', domain)
-            verification_ns = whois.consult_ns(domain_regex)
+            if not service_whois:
+                return render_template(
+                    'nslookup/results.html', error=f'Serviço {service} não existe'
+                )
+            
+            domain_ns = process.run_job(service_whois, domain)
 
-            if any(conditions) and verification_ns:
-                result = whois.consult_email(domain_regex)
-                return render_template('nslookup/results.html', domain=result)
+            if not domain_ns:
+                return render_template(
+                    'nslookup/results.html', error=f'Domínio {domain} não existe'
+                )
 
-            return render_template(
-                'nslookup/results.html', error=f'Not Found {domain_regex}'
-            )
+            return render_template('nslookup/results.html', domain=domain_ns)
 
     return render_template('nslookup/index.html')

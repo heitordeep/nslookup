@@ -1,6 +1,9 @@
-from control.whois import Whois
+import re
 
-class Email(Whois):
+from control import Whois
+from interface import ServicesInterface
+
+class Email(ServicesInterface, Whois):
 
     def __init__(self):
         self.txt = 'include:spf.whservidor.com'
@@ -34,20 +37,22 @@ class Email(Whois):
 
         self.protocols_output = {}
 
-    def __str__(self) -> str:
-        return 'E-MAIL PROFISSIONAL'
+    def check_service_exists(self, input_service: str) -> str:
+        if input_service == 'E-MAIL PROFISSIONAL':
+            return True
+        return False
 
-    def __get_cname(self, domain: str) -> None:
+    def get_all_cnames(self, domain: str) -> None:
         
         for protocol in self.protocol_with_entry_email_default:
 
-            output = self.consult_cname(
+            output = self.get_cname(
                 protocol=protocol,
                 domain=domain
             )
 
             self.protocols_output.update(
-                self.__verification_dns(
+                self.verification_dns(
                     output,
                     protocol,
                     domain,
@@ -57,17 +62,17 @@ class Email(Whois):
 
         return self
 
-    def __get_others_zones(self, domain: str) -> None:
+    def get_all_others_zones(self, domain: str) -> None:
 
         for protocol in self.protocol_no_entry_email_default:    
             
-            output = self.consult_other_zone(
+            output = self.get_other_zone(
                 protocol=protocol,
                 domain=domain
             )
 
             self.protocols_output.update(
-                self.__verification_dns(
+                self.verification_dns(
                     output,
                     protocol,
                     domain,
@@ -77,7 +82,7 @@ class Email(Whois):
         
         return self
     
-    def __verification_dns(
+    def verification_dns(
         self, output, protocol, domain, equal_to_dns
     ):
 
@@ -96,7 +101,7 @@ class Email(Whois):
                 domain_results[protocol] = {
                     'entrada': f'{domain}',
                     'destino': protocol_to_sanitize.get(protocol, output),
-                }
+                } # DNS zone correct
 
             else:
                 domain_results[protocol] = {
@@ -112,12 +117,22 @@ class Email(Whois):
             } # DNS zone not found
 
         return domain_results
+    
+    def clear_domain(self, domain: str) -> str:
+        self.domain_cleaned = re.sub(
+            r"^(?:https?:\/\/)?(?:www\.)?", 
+            '', 
+            domain
+        )
+        return self
 
-
-    def consult_email(self, domain: str) -> dict:
-        (
-            self.__get_cname(domain=domain)
-            .__get_others_zones(domain=domain)
+    def get_dns(self, domain: str) -> dict:
+        self.clear_domain(domain)
+        if not self.get_ns(self.domain_cleaned):
+            return self.protocols_output
+        (           
+            self.get_all_cnames(domain=self.domain_cleaned)
+            .get_all_others_zones(domain=self.domain_cleaned)
         )
 
         return self.protocols_output
