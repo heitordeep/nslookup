@@ -5,3 +5,4 @@ MarkupSafe==1.1.1
 Werkzeug==0.16.1
 python-decouple==3.3
 Flask-WTF==0.14.2
+itsdangerous==2.0.1
