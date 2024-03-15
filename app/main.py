@@ -2,7 +2,7 @@ import re
 
 from flask import Blueprint, render_template, request
 
-from control.search_dns import Whois
+from product.services import Process
 
 app = Blueprint('app', __name__, url_prefix='/whois/')
 
@@ -17,7 +17,7 @@ def home():
 
 @app.route('/result/', methods=['POST'])
 def result_whois():
-    whois = Whois()
+    process = Process()
     if request.method == 'POST':
 
         domain = request.form.get('domain')
@@ -25,13 +25,15 @@ def result_whois():
 
         if domain and zone:
 
+            whois = process.consult_product(input_product=zone)
+
             conditions = [zone.lower() in allowed_search]
             # Remove www, http and https in the domain
             domain_regex = re.sub(r"^(?:https?:\/\/)?(?:www\.)?", '', domain)
             verification_ns = whois.consult_ns(domain_regex)
 
             if any(conditions) and verification_ns:
-                result = whois.email_profissional(domain_regex, zone)
+                result = whois.consult_email(domain_regex)
                 return render_template('nslookup/results.html', domain=result)
 
             return render_template(
