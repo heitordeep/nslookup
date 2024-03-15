@@ -15,5 +15,5 @@ class ServicesInterface(ABC):
         pass
 
     @abstractclassmethod
-    def get_dns(self, domain: str) -> dict:
+    def get_dns_information(self, domain: str) -> dict:
         pass

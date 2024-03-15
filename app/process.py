@@ -8,7 +8,7 @@ class Process:
         ]
 
     def run_job(self, service, domain):
-        return service.get_dns(domain)
+        return service.get_dns_information(domain)
 
     def get_service(self, input_service: str) -> None:
         for service in self.services:

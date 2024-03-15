@@ -126,7 +126,7 @@ class Email(ServicesInterface, Whois):
         )
         return self
 
-    def get_dns(self, domain: str) -> dict:
+    def get_dns_information(self, domain: str) -> dict:
         self.clear_domain(domain)
         if not self.get_ns(self.domain_cleaned):
             return self.protocols_output
