@@ -1,4 +1,4 @@
-from product.email import Email
+from services.email import Email
 
 class Process:
 

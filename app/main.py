@@ -2,7 +2,7 @@ import re
 
 from flask import Blueprint, render_template, request
 
-from product.services import Process
+from app.services import Process
 
 app = Blueprint('app', __name__, url_prefix='/whois/')
 
