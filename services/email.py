@@ -1,7 +1,9 @@
 import re
+from typing import Dict
 
 from control import Whois
 from interface import ServicesInterface
+
 
 class Email(ServicesInterface, Whois):
 
@@ -37,7 +39,7 @@ class Email(ServicesInterface, Whois):
 
         self.protocols_output = {}
 
-    def check_service_exists(self, input_service: str) -> str:
+    def check_service_exists(self, input_service: str) -> bool:
         if input_service == 'E-MAIL PROFISSIONAL':
             return True
         return False
@@ -84,7 +86,7 @@ class Email(ServicesInterface, Whois):
     
     def verification_dns(
         self, output, protocol, domain, equal_to_dns
-    ):
+    ) -> Dict:
 
         domain_results = {}
         protocol_to_sanitize = {}
@@ -118,16 +120,16 @@ class Email(ServicesInterface, Whois):
 
         return domain_results
     
-    def clear_domain(self, domain: str) -> str:
+    def sanitize_domain(self, domain: str) -> None:
         self.domain_cleaned = re.sub(
-            r"^(?:https?:\/\/)?(?:www\.)?", 
+            r'https?://(?:www\.)?|www\.|/',
             '', 
             domain
         )
         return self
 
     def get_dns_information(self, domain: str) -> dict:
-        self.clear_domain(domain)
+        self.sanitize_domain(domain)
         if not self.get_ns(self.domain_cleaned):
             return self.protocols_output
         (           
