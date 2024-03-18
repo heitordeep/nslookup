@@ -41,3 +41,8 @@ upload: ## Upload image on heroku
 
 run: clean ## Run wsgi
 	@python wsgi.py
+
+
+# ------ Pytest ------
+tests: clean ## Pytest app
+	pytest tests/ 
