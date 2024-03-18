@@ -21,7 +21,7 @@
       <tbody>
 
           {% for key, value in domain.items() %}
-
+          <!-- Check if value is iterable -->
           {% if value["destino"] is iterable and value["destino"] is not string %}
               {% set value_destiny = "<br/><br/>".join(value["destino"])|safe %}
           {% else %}

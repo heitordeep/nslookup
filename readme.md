@@ -6,6 +6,7 @@ porém o sistema verifica somente se o seu domínio encontra-se no servidor do *
 
 
 ## :pushpin: Pré-requisitos:
+- Versão do Python: ```3.8.18```
 - Bibliotecas para o projeto: ```make requirements```
 
 ## :closed_lock_with_key: Arquivo .env:
