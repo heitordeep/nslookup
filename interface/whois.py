@@ -1,5 +1,6 @@
 from abc import ABC, abstractclassmethod
 
+
 class WhoisInterface(ABC):
 
     @abstractclassmethod

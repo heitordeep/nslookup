@@ -8,6 +8,7 @@ porém o sistema verifica somente se o seu domínio encontra-se no servidor do *
 ## :pushpin: Pré-requisitos:
 - Versão do Python: ```3.8.18```
 - Bibliotecas para o projeto: ```make requirements```
+- Adicionar na variável de ambiente: ```PYTHONPATH=. pytest```
 
 ## :closed_lock_with_key: Arquivo .env:
 - É preciso criar um arquivo com o nome .env na raiz do projeto, pois precisa conter dois parâmetros:
@@ -17,6 +18,10 @@ porém o sistema verifica somente se o seu domínio encontra-se no servidor do *
 ## :rocket: Executar o script:
 - Para acessar a página web via localhost, basta digitar o comando:
   - ```make run```
+
+## :rocket: Executar testes:
+  - ```make tests```
+
 
 - Caso queira rodar no heroku:
   - Crie um app no heroku com o nome: **specific-dns**

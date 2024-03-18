@@ -2,6 +2,7 @@ import subprocess
 
 from interface import WhoisInterface
 
+
 class Whois(WhoisInterface):
 
     def get_ns(self, domain: str) -> bool:
