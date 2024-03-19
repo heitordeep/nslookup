@@ -1,11 +1,8 @@
 from abc import ABC, abstractclassmethod
+from typing import Dict
 
 
 class ServicesInterface(ABC):
-
-    @abstractclassmethod
-    def check_service_exists(self, input_service: str) -> str:
-        pass
 
     @abstractclassmethod
     def get_all_cnames(self, domain: str) -> None:
@@ -16,5 +13,5 @@ class ServicesInterface(ABC):
         pass
 
     @abstractclassmethod
-    def get_dns_information(self, domain: str) -> dict:
+    def get_dns_information(self, domain: str) -> Dict:
         pass
