@@ -39,11 +39,6 @@ class Email(ServicesInterface, Whois):
 
         self.protocols_output = {}
 
-    def check_service_exists(self, input_service: str) -> bool:
-        if input_service == 'E-MAIL PROFISSIONAL':
-            return True
-        return False
-
     def get_all_cnames(self, domain: str) -> None:
         
         for protocol in self.protocol_with_entry_email_default:
@@ -128,7 +123,7 @@ class Email(ServicesInterface, Whois):
         )
         return self
 
-    def get_dns_information(self, domain: str) -> dict:
+    def get_dns_information(self, domain: str) -> Dict:
         self.sanitize_domain(domain)
         if not self.get_ns(self.domain_cleaned):
             return self.protocols_output
