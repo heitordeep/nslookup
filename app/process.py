@@ -22,3 +22,15 @@ class Process:
         if input_service in self.services.keys():
             return self.services[input_service]
         return
+
+    def process_request(self, domain: str, service: str) -> Union[Dict, str]:
+        service_whois = self.get_service(service)
+        if not service_whois:
+            return f'Serviço {service} não existe'
+
+        domain_ns = self.run_job(service_whois, domain)
+        print(domain_ns)
+        if not domain_ns:
+            return f'Domínio {domain} não existe'
+
+        return domain_ns
