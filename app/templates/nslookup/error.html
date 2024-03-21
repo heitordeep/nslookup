@@ -1,0 +1,40 @@
+{% extends 'nslookup/base.html' %}
+
+{% block content %}
+
+{% block script %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+{% endblock %}
+
+<style>
+    div#loading {
+        left: 50%;
+        top: 40%;
+        width: 300px;
+        height: 250px;
+        margin-left: -150px;
+        margin-top: -125px;
+        display: none;
+        text-align: center;
+        position: absolute;
+        z-index: 1000;
+    }
+
+
+</style>
+
+<br />
+<button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="window.location='/whois/';">Nova Pesquisa</button>
+<br />
+
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">{{ error }}</h4>
+</div>
+
+<footer id="sticky-footer" class="py-4 bg-dark text-white fixed-bottom" style="margin-top: 23.7%">
+    <div class="container text-center">
+      <small>&copy; Desenvolvido por Fernando Heitor - 2020</small>
+    </div>
+</footer>
+
+{% endblock %}
