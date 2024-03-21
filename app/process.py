@@ -29,7 +29,6 @@ class Process:
             return f'Serviço {service} não existe'
 
         domain_ns = self.run_job(service_whois, domain)
-        print(domain_ns)
         if not domain_ns:
             return f'Domínio {domain} não existe'
 

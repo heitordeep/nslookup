@@ -17,7 +17,10 @@ def result_whois():
     service = request.form.get('service')
 
     if not domain or not service:
-        return render_template('nslookup/index.html')
+        return render_template(
+            'nslookup/error.html', 
+            error='Domínio ou serviço não foi informado'
+        ), 400
     
     process = Process()
     result = process.process_request(service=service, domain=domain)
@@ -25,5 +28,6 @@ def result_whois():
     if isinstance(result, str):
         return render_template(
             'nslookup/results.html', error=result
-        )
+        ), 404
+    
     return render_template('nslookup/results.html', domain=result)
