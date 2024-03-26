@@ -22,12 +22,5 @@ porém o sistema verifica somente se o seu domínio encontra-se no servidor do *
 ## :rocket: Executar testes:
   - ```make tests```
 
-
-- Caso queira rodar no heroku:
-  - Crie um app no heroku com o nome: **specific-dns**
-  - Execute o comando: ```make deploy```
-  - Após finalizar, execute: ```make upload```
-
 ## :cloud: Acesso:
-- Heroku: http://specific-dns.herokuapp.com/whois/
 - Local: http://localhost:5000/whois/

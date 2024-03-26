@@ -27,16 +27,6 @@ requirements: ## Install project packages
 	@pip install --upgrade pip
 	@pip install -r requirements_dev.txt
 
-
-# ------ Docker ------
-
-deploy: ## Deploy image on Heroku
-	sudo heroku container:push web --app specific-dns
-
-upload: ## Upload image on heroku
-	heroku container:release web --app specific-dns
-
-
 # ------ Flask ------
 
 run: clean ## Run wsgi
