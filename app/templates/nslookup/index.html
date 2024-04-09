@@ -78,18 +78,10 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="row">
             <!-- Domain -->
-            <div class="form-group col-6 text-center">
+            <div class="form-group col-12 text-center">
                 <label for="domain">Domínio</label>
                 <input type="text" class="form-control" min="2" max="26" name="domain" id="domain">
                 <small class="form-text text-muted">Digite o domínio para buscar o whois</small>
-            </div>
-            <!-- Service -->
-            <div class="form-group col-6 text-center">
-                <label for="service_dns">Selecione o Plano</label>
-                <select name="service" class="form-control" id="service_dns">
-                    <option>E-MAIL PROFISSIONAL</option>
-                </select>
-                <small class="form-text text-muted">Qual plano você deseja pesquisar?</small>
             </div>
         </div>
         <br />
@@ -99,7 +91,7 @@
 
 <footer id="sticky-footer" class="py-4 bg-dark text-white fixed-bottom" style="margin-top: 23.7%">
     <div class="container text-center">
-      <small>&copy; Desenvolvido por Fernando Heitor - 2020</small>
+      <small>&copy; Desenvolvido por Fernando Heitor - 2024</small>
     </div>
 </footer>
 
