@@ -30,7 +30,6 @@ class ServiceApplication:
 
         if not self.whois.get_ns(domain):
             return f'{domain} NS not found'
-        
-        
+
         domain_info = self.__domain_info(domain)
         return self.service.verification_dns(domain, domain_info)
