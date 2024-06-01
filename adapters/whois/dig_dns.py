@@ -1,7 +1,9 @@
 import subprocess
 
+from ports import WhoisPort
 
-class Whois:
+
+class DigDNS(WhoisPort):
 
     def get_ns(self, domain: str) -> bool:
 
@@ -26,7 +28,7 @@ class Whois:
             f'dig {protocol}.{domain} cname +short'
         )
 
-    def get_other_zone(self, domain: str, protocol: str) -> str:
+    def get_other_zone(self, protocol: str, domain: str) -> str:
         return subprocess.getoutput(
             f'dig {domain} {protocol} +short'
         )

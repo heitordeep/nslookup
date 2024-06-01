@@ -28,14 +28,14 @@
         
 
         if (domain == null || domain == '') {
-            alert('Campo de domínio não pode ser vazio!');
+            alert('Domain field cannot be empty!"');
             remove_loading();
             document.getElementById("domain").focus();
             return false;
         }
 
         if (domain.length < 3) {
-            alert('Preencha no mínimo 3 caracteres para a pesquisa.');
+            alert('Please enter at least 3 characters for the search');
             remove_loading();
             document.getElementById("domain").focus();
             
@@ -43,7 +43,7 @@
         }
 
         if (!regex.test(domain)) {
-            alert('Preencha o domínio corretamente!');
+            alert('Please fill in the domain correctly!');
             remove_loading();
             document.getElementById("domain").focus();
             return false;
@@ -78,28 +78,20 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="row">
             <!-- Domain -->
-            <div class="form-group col-6 text-center">
-                <label for="domain">Domínio</label>
+            <div class="form-group col-12 text-center">
+                <label for="domain">Domain</label>
                 <input type="text" class="form-control" min="2" max="26" name="domain" id="domain">
-                <small class="form-text text-muted">Digite o domínio para buscar o whois</small>
-            </div>
-            <!-- Service -->
-            <div class="form-group col-6 text-center">
-                <label for="service_dns">Selecione o Plano</label>
-                <select name="service" class="form-control" id="service_dns">
-                    <option>E-MAIL PROFISSIONAL</option>
-                </select>
-                <small class="form-text text-muted">Qual plano você deseja pesquisar?</small>
+                <small class="form-text text-muted">Type the domain to search for WHOIS information</small>
             </div>
         </div>
         <br />
-        <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="loading();">Buscar</button>
+        <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="loading();">Lookup DNS information</button>
     </form>
 
 
 <footer id="sticky-footer" class="py-4 bg-dark text-white fixed-bottom" style="margin-top: 23.7%">
     <div class="container text-center">
-      <small>&copy; Desenvolvido por Fernando Heitor - 2020</small>
+      <small>&copy; Developed by Fernando Heitor - 2024</small>
     </div>
 </footer>
 

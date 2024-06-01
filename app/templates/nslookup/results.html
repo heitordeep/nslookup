@@ -6,16 +6,16 @@
 
 {% if domain %}
   <br />
-  <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="window.location='/whois/';">Nova Pesquisa</button>
+  <button class="btn btn-dark btn-lg btn-block" style="color:#dd9e2c;" onclick="window.location='/whois/';">New search</button>
   <br />
   <div class="table-responsive" >
   <table class="table table-hover table-primary text-center ">
       <thead>
       <tr>
 
-          <th scope="col">Entrada</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Servidores</th>
+          <th scope="col">Typed domain</th>
+          <th scope="col">Zone DNS</th>
+          <th scope="col">Server</th>
       </tr>
       </thead>
       <tbody>
@@ -34,18 +34,17 @@
 
               {% if value["error"] != 0 and value["error"] != 1 %}
                   <td class="p-3 mb-2 alert alert-success ">
-                      Destino <br/><strong>{{ value_destiny }}</strong><br/> correto
+                        Correct destination<br/><strong>{{ value_destiny }}</strong><br/>
                   </td>
               {% elif value["error"] == 1 %}
                   <td class="p-3 mb-2 alert alert-danger">
-                      Destino <strong>{{ key|upper }}</strong> não configurado
+                        <strong>{{ key|upper }}</strong> destination not configured 
                   </td>
               {% elif value["error"] == 0 %}
                   <td class="p-3 mb-2 alert alert-warning">
-                      Destino <br/><strong>{{ value_destiny }}</strong><br/> incorreto
+                        Incorrect destination<br/><strong>{{ value_destiny }}</strong><br/>
                   </td>
               {% endif %}
-
           </tr>
           {% endfor %}
 
@@ -60,7 +59,7 @@
 <br />
 <div class="alert alert-danger" role="alert">
     <h4 class="alert-heading">{{ error }}</h4><hr>
-    Não foi possível encontrar dns do domínio digitado. Por favor, tente novamente.
+        Unable to find DNS records for the entered domain. Please try again
 </div>
 {% endif %}
 {% endblock %}
